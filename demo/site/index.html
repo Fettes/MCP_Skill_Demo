@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCP Skill Demo Site</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 720px;
+        margin: 24px auto;
+        padding: 0 12px;
+      }
+      h1, h2 {
+        margin-bottom: 8px;
+      }
+      .panel {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 16px;
+      }
+      label {
+        display: block;
+        margin: 8px 0 4px;
+      }
+      input, button {
+        padding: 8px;
+      }
+      ul {
+        padding-left: 20px;
+      }
+      .ok {
+        color: #197c2d;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>MCP & Skill Playwright 演示页</h1>
+    <p>用于本地自动化演示，不依赖后端服务。</p>
+
+    <section class="panel">
+      <h2>登录区</h2>
+      <label for="username">用户名</label>
+      <input id="username" placeholder="输入 admin" />
+      <label for="password">密码</label>
+      <input id="password" type="password" placeholder="输入 123456" />
+      <div style="margin-top: 8px">
+        <button id="login-btn">登录</button>
+      </div>
+      <p id="login-status">未登录</p>
+    </section>
+
+    <section class="panel">
+      <h2>Todo 区</h2>
+      <label for="todo-input">新增事项</label>
+      <input id="todo-input" placeholder="例如：准备分享开场" />
+      <button id="add-todo-btn">添加</button>
+      <ul id="todo-list"></ul>
+      <p id="todo-count">当前事项数：0</p>
+    </section>
+
+    <script>
+      const loginBtn = document.getElementById("login-btn");
+      const usernameInput = document.getElementById("username");
+      const passwordInput = document.getElementById("password");
+      const loginStatus = document.getElementById("login-status");
+
+      loginBtn.addEventListener("click", () => {
+        const user = usernameInput.value.trim();
+        const pass = passwordInput.value.trim();
+        if (user === "admin" && pass === "123456") {
+          loginStatus.textContent = "登录成功";
+          loginStatus.className = "ok";
+        } else {
+          loginStatus.textContent = "登录失败";
+          loginStatus.className = "";
+        }
+      });
+
+      const todoInput = document.getElementById("todo-input");
+      const addTodoBtn = document.getElementById("add-todo-btn");
+      const todoList = document.getElementById("todo-list");
+      const todoCount = document.getElementById("todo-count");
+
+      function refreshCount() {
+        todoCount.textContent = `当前事项数：${todoList.children.length}`;
+      }
+
+      addTodoBtn.addEventListener("click", () => {
+        const text = todoInput.value.trim();
+        if (!text) return;
+        const item = document.createElement("li");
+        item.textContent = text;
+        todoList.appendChild(item);
+        todoInput.value = "";
+        refreshCount();
+      });
+    </script>
+  </body>
+</html>

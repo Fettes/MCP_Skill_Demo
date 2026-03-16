@@ -1,0 +1,14 @@
+{
+  "name": "mcp-skill-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Tech sharing demo for MCP vs Skill with Playwright.",
+  "type": "module",
+  "scripts": {
+    "demo:skill": "node demo/skill-demo.js",
+    "demo:mcp": "node demo/mcp-demo.js"
+  },
+  "dependencies": {
+    "playwright": "1.58.2"
+  }
+}
